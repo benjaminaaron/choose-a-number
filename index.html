@@ -3,6 +3,17 @@
         <title>Such dir eine Zahl aus</title>
         <script src="js/Card.js" type="text/javascript"></script>
         <style>
+            body {
+                font: bold 20px Verdana, Arial, sans-serif;
+                color: darkblue;
+            }
+            #button-container, #card-container {
+                padding-top: 20px;
+            }
+            table {
+                border: 1px solid lightblue;
+                color: gray;
+            }
         </style>
     </head>
     <body>
@@ -11,7 +22,7 @@
         </div>
         <div id="card-container"></div>
         <div id="button-container">
-            <input id="start-btn" type="button" value="Ok, hab ich. Los gehts." onclick="start()">
+            <input type="button" value="Ok, hab ich. Los gehts." onclick="start()">
         </div>
         <script>
             var max = 60; // min = 1
