@@ -82,7 +82,19 @@
             }
 
             function clickedRestart() {
-                location.reload();
+                document.getElementById("prompt").innerHTML = "Such dir eine Zahl zwischen 1 und 60 aus.";
+                var buttonContainer = document.getElementById("button-container");
+                removeChildren(buttonContainer);
+                var startBtn = document.createElement("input");
+                startBtn.type = "button";
+                startBtn.value = "Ok, hab ich. Los gehts.";
+                startBtn.onclick = start;
+                buttonContainer.appendChild(startBtn);
+                cards = [];
+                for (var i = 0; i < binDigits; i ++) {
+                    cards.push(new Card(max, i));
+                }
+                magicNumber = 0;
             }
 
             function removeChildren(node) {
