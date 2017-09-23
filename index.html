@@ -14,7 +14,15 @@
             <input id="start-btn" type="button" value="Ok, hab ich. Los gehts." onclick="start()">
         </div>
         <script>
+            var max = 60; // min = 1
+            var binDigits = Math.ceil(Math.log(max) / Math.log(2));
+
             var cards = [];
+            for (var i = 0; i < binDigits; i ++) {
+                cards.push(new Card(max, i));
+            }
+            var currentCard;
+            var magicNumber = 0;
 
             function start() {
                 document.getElementById("prompt").innerHTML = "Ist deine Zahl hier zu sehen?";
@@ -23,17 +31,47 @@
                 var yesBtn = document.createElement("input");
                 yesBtn.type = "button";
                 yesBtn.value = "Ja";
-                yesBtn.onclick = cardClicked(true);
+                yesBtn.onclick = clickedYes;
                 buttonContainer.appendChild(yesBtn);
                 var noBtn = document.createElement("input");
                 noBtn.type = "button";
                 noBtn.value = "Nein";
-                noBtn.onclick = cardClicked(false);
+                noBtn.onclick = clickedNo;
                 buttonContainer.appendChild(noBtn);
+                nextStep();
             }
 
-            function cardClicked(yesNo) {
+            function nextStep() {
+                var cardContainer = document.getElementById("card-container");
+                removeChildren(cardContainer);
+                if (cards.length > 0) {
+                    var randomIdx = Math.floor(Math.random() * cards.length);
+                    currentCard = cards[randomIdx];
+                    cards.splice(randomIdx, 1);
+                    cardContainer.appendChild(currentCard.getTable());
+                } else {
+                    document.getElementById("prompt").innerHTML = "Deine Zahl ist " + magicNumber + "!";
+                    var buttonContainer = document.getElementById("button-container");
+                    removeChildren(buttonContainer);
+                    var restartBtn = document.createElement("input");
+                    restartBtn.type = "button";
+                    restartBtn.value = "Nochmal!";
+                    restartBtn.onclick = clickedRestart;
+                    buttonContainer.appendChild(restartBtn);
+                }
+            }
 
+            function clickedYes() {
+                magicNumber += currentCard.value;
+                nextStep();
+            }
+
+            function clickedNo() {
+                nextStep();
+            }
+
+            function clickedRestart() {
+                location.reload();
             }
 
             function removeChildren(node) {
