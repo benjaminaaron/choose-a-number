@@ -5,24 +5,45 @@
         <style>
             body {
                 font: bold 20px Verdana, Arial, sans-serif;
+                text-align: center;
                 color: darkblue;
             }
-            #button-container, #card-container {
+            #container {
+                margin: auto;
+                width: 480px;
+            }
+            #card-container, #button-container {
                 padding-top: 20px;
+                margin: auto;
             }
             table {
                 border: 1px solid lightblue;
-                color: gray;
+                color: darkcyan;
+                margin: auto;
+                border-spacing: 15px;
+                border-radius: 20px;
+            }
+            input[type="button"] {
+                border-radius: 10px;
+                background: orange;
+                border:1px solid gray;
+                font: normal 15px Verdana, Arial, sans-serif;
+                padding: 10px 20px;
+            }
+            .bigger {
+                font-size: 300%;
             }
         </style>
     </head>
     <body>
-        <div id="prompt">
-            Such dir eine Zahl zwischen 1 und 60 aus.
-        </div>
-        <div id="card-container"></div>
-        <div id="button-container">
-            <input type="button" value="Ok, hab ich. Los gehts." onclick="start()">
+        <div id="container">
+            <div id="prompt">
+                Such dir eine Zahl zwischen 1 und 60 aus.
+            </div>
+            <div id="card-container"></div>
+            <div id="button-container">
+                <input type="button" value="Ok, hab ich. Los gehts." onclick="start()">
+            </div>
         </div>
         <script>
             var max = 60; // min = 1
@@ -44,6 +65,7 @@
                 yesBtn.value = "Ja";
                 yesBtn.onclick = clickedYes;
                 buttonContainer.appendChild(yesBtn);
+                buttonContainer.appendChild(document.createTextNode("\u00A0\u00A0\u00A0"));
                 var noBtn = document.createElement("input");
                 noBtn.type = "button";
                 noBtn.value = "Nein";
@@ -61,7 +83,7 @@
                     cards.splice(randomIdx, 1);
                     cardContainer.appendChild(currentCard.getTable());
                 } else {
-                    document.getElementById("prompt").innerHTML = "Deine Zahl ist " + magicNumber + "!";
+                    document.getElementById("prompt").innerHTML = "Deine Zahl ist:<br><span class='bigger'>" + magicNumber + "</span>";
                     var buttonContainer = document.getElementById("button-container");
                     removeChildren(buttonContainer);
                     var restartBtn = document.createElement("input");
